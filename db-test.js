@@ -2,10 +2,11 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 async function testDatabaseConnection() {
+    let connection;
     try {
         console.log('Testing database connection...');
         
-        // Database configuration - you'll need to update these values
+        // Database configuration
         const dbConfig = {
             host: process.env.DB_HOST || 'localhost',
             user: process.env.DB_USER || 'root',
@@ -22,25 +23,58 @@ async function testDatabaseConnection() {
         });
         
         // Create connection
-        const connection = await mysql.createConnection(dbConfig);
+        connection = await mysql.createConnection(dbConfig);
         
         console.log('✅ Database connection successful!');
         
-        // Test a simple query
-        const [rows] = await connection.execute('SELECT 1 as test');
-        console.log('✅ Test query successful:', rows);
-        
-        // Test if tables exist
+        // Get list of tables
         const [tables] = await connection.execute('SHOW TABLES');
-        console.log('📋 Available tables:', tables.map(row => Object.values(row)[0]));
+        const tableNames = tables.map(row => Object.values(row)[0]);
+        console.log('📋 Available tables:', tableNames);
         
-        // Close connection
-        await connection.end();
-        console.log('✅ Database connection closed successfully');
+        // Check specific tables of interest
+        const tablesToCheck = ['utilizatori', 'produse', 'categorii', 'comenzi'];
+        
+        for (const tableName of tablesToCheck) {
+            if (tableNames.includes(tableName)) {
+                // Get table structure
+                const [columns] = await connection.execute(`DESCRIBE ${tableName}`);
+                console.log(`\n📊 Table structure for '${tableName}':`);
+                console.table(columns.map(col => ({
+                    Field: col.Field,
+                    Type: col.Type,
+                    Null: col.Null,
+                    Key: col.Key,
+                    Default: col.Default
+                })));
+                
+                // Count rows
+                const [countResult] = await connection.execute(`SELECT COUNT(*) as count FROM ${tableName}`);
+                const rowCount = countResult[0].count;
+                console.log(`📈 Total rows in '${tableName}': ${rowCount}`);
+                
+                // Show sample data (limited to 5 rows)
+                if (rowCount > 0) {
+                    const [rows] = await connection.execute(`SELECT * FROM ${tableName} LIMIT 5`);
+                    console.log(`📝 Sample data from '${tableName}':`);
+                    console.table(rows);
+                } else {
+                    console.log(`⚠️ No data found in '${tableName}'`);
+                }
+            } else {
+                console.log(`❌ Table '${tableName}' does not exist`);
+            }
+        }
         
     } catch (error) {
         console.error('❌ Database connection failed:', error.message);
         console.error('Error details:', error);
+    } finally {
+        // Close connection if it was established
+        if (connection) {
+            await connection.end();
+            console.log('✅ Database connection closed successfully');
+        }
     }
 }
 
