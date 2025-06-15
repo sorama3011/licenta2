@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autentificare - Gusturi Românești</title>
+    <meta name="description" content="Conectează-te la contul tău Gusturi Românești pentru a accesa comenzile, lista de favorite și ofertele exclusive.">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assistant-bot.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                🇷🇴 Gusturi Românești
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Acasă</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Produse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="offers.html">Oferte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Despre Noi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">
+                            <i class="bi bi-person"></i> Cont
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="bi bi-basket"></i> Coș
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="py-5" style="margin-top: 76px; min-height: calc(100vh - 76px);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-primary text-white text-center py-4">
+                            <h3 class="mb-0">
+                                <i class="bi bi-person-circle me-2"></i>
+                                Autentificare
+                            </h3>
+                        </div>
+                        <div class="card-body p-5">
+                            <!-- Login Form -->
+                            <form id="loginForm" onsubmit="return handleLogin(event)">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Adresa de email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-envelope"></i>
+                                        </span>
+                                        <input type="email" class="form-control" id="email" required placeholder="exemplu@email.com">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Parola</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="password" required placeholder="Introdu parola">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                            <i class="bi bi-eye" id="toggleIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">
+                                        Ține-mă minte
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                    <i class="bi bi-box-arrow-in-right"></i> Autentifică-te
+                                </button>
+                            </form>
+
+                            <div class="text-center">
+                                <a href="#" class="text-decoration-none" onclick="showForgotPassword()">
+                                    Ai uitat parola?
+                                </a>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Register Section -->
+                            <div class="text-center">
+                                <p class="mb-3">Nu ai un cont încă?</p>
+                                <button class="btn btn-outline-primary btn-lg w-100" onclick="showRegisterForm()">
+                                    <i class="bi bi-person-plus"></i> Creează Cont Nou
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Register Form (Hidden by default) -->
+                    <div class="card shadow-lg mt-4" id="registerCard" style="display: none;">
+                        <div class="card-header bg-secondary text-white text-center py-4">
+                            <h3 class="mb-0">
+                                <i class="bi bi-person-plus-fill me-2"></i>
+                                Creează Cont Nou
+                            </h3>
+                        </div>
+                        <div class="card-body p-5">
+                            <form id="registerForm" onsubmit="return handleRegister(event)">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">Prenume</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Nume</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Adresa de email</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Telefon</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="+40 7XX XXX XXX">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Parola</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                    <div class="form-text">Parola trebuie să aibă cel puțin 8 caractere</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Confirmă Parola</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        Sunt de acord cu <a href="terms.html" class="text-primary">Termenii și Condițiile</a> și <a href="privacy.html" class="text-primary">Politica de Confidențialitate</a>
+                                    </label>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Vreau să primesc oferte și noutăți pe email
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-secondary btn-lg w-100 mb-3">
+                                    <i class="bi bi-person-plus"></i> Creează Contul
+                                </button>
+                            </form>
+
+                            <div class="text-center">
+                                <button class="btn btn-link" onclick="showLoginForm()">
+                                    Ai deja un cont? Autentifică-te
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Benefits Section -->
+                    <div class="card shadow-sm mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-4">Beneficiile unui Cont</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-speedometer2 text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Comandă Rapidă</h6>
+                                            <small class="text-muted">Salvează datele pentru comenzi viitoare</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-heart text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Lista de Favorite</h6>
+                                            <small class="text-muted">Salvează produsele preferate</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-clock-history text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Istoric Comenzi</h6>
+                                            <small class="text-muted">Vezi toate comenzile anterioare</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-gift text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <h6 class="mb-1">Oferte Exclusive</h6>
+                                            <small class="text-muted">Acces la reduceri speciale</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>Gusturi Românești</h5>
+                    <p>Cea mai mare platformă online de produse tradiționale românești.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Navigare</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">Acasă</a></li>
+                        <li><a href="products.html" class="text-light text-decoration-none">Produse</a></li>
+                        <li><a href="offers.html" class="text-light text-decoration-none">Oferte</a></li>
+                        <li><a href="about.html" class="text-light text-decoration-none">Despre Noi</a></li>
+                        <li><a href="contact.html" class="text-light text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Cont</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="login.html" class="text-light text-decoration-none">Autentificare</a></li>
+                        <li><a href="cart.html" class="text-light text-decoration-none">Coșul Meu</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Informații</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="privacy.html" class="text-light text-decoration-none">Politica de Confidențialitate</a></li>
+                        <li><a href="terms.html" class="text-light text-decoration-none">Termeni și Condiții</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Contact</h6>
+                    <p class="small mb-1">📍 București, România</p>
+                    <p class="small mb-1">📞 +40 721 234 567</p>
+                    <p class="small">✉️ contact@gusturi-romanesti.ro</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Gusturi Românești. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+    <script src="assistant-bot.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'bi bi-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'bi bi-eye';
+            }
+        }
+
+        function showRegisterForm() {
+            document.getElementById('registerCard').style.display = 'block';
+            document.getElementById('registerCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerCard').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                // Simulate login success
+                showNotification('Autentificare reușită! Bun venit înapoi!', 'success');
+                
+                // Store user session
+                const userData = {
+                    name: 'Maria Popescu',
+                    email: email,
+                    points: 320,
+                    totalOrders: 12,
+                    totalSpent: 1247,
+                    favoriteProducts: 8,
+                    loggedIn: true
+                };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                setTimeout(() => {
+                    // Check if there's a redirect URL stored
+                    const redirectUrl = localStorage.getItem('redirectAfterLogin');
+                    if (redirectUrl) {
+                        localStorage.removeItem('redirectAfterLogin');
+                        window.location.href = redirectUrl;
+                    } else {
+                        window.location.href = 'account.html';
+                    }
+                }, 1500);
+                return true;
+            }
+            
+            return false;
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('Parolele nu se potrivesc!', 'danger');
+                return false;
+            }
+            
+            if (password.length < 8) {
+                showNotification('Parola trebuie să aibă cel puțin 8 caractere!', 'danger');
+                return false;
+            }
+            
+            if (validateForm('registerForm')) {
+                showNotification('Contul a fost creat cu succes! Te poți autentifica acum.', 'success');
+                document.getElementById('registerForm').reset();
+                showLoginForm();
+                return true;
+            }
+            
+            return false;
+        }
+
+        function showForgotPassword() {
+            const email = prompt('Introdu adresa de email pentru resetarea parolei:');
+            if (email && email.includes('@')) {
+                showNotification('Instrucțiunile pentru resetarea parolei au fost trimise pe email.', 'info');
+            }
+        }
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            if (userData.loggedIn) {
+                // User is already logged in, redirect to account page
+                window.location.href = 'account.html';
+            }
+        });
+    </script>
+</body>
+</html>

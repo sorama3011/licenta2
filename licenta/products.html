@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produse Tradiționale - Gusturi Românești</title>
+    <meta name="description" content="Descoperă gama completă de produse tradiționale românești: dulcețuri, mezeluri, brânzeturi, băuturi și multe altele din toate regiunile țării.">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assistant-bot.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                🇷🇴 Gusturi Românești
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Acasă</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">Produse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="offers.html">Oferte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Despre Noi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <i class="bi bi-person"></i> Cont
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="bi bi-basket"></i> Coș
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-primary text-white py-5" style="margin-top: 76px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold">Produse Tradiționale Românești</h1>
+                    <p class="lead">Descoperă autenticitatea gusturilor din toate regiunile României</p>
+                    <!-- Category breadcrumb will be shown here when filtered -->
+                    <div id="category-breadcrumb" class="mt-3" style="display: none;">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="products.html" class="text-warning text-decoration-none">Toate produsele</a>
+                                </li>
+                                <li class="breadcrumb-item active text-light" aria-current="page" id="current-category">
+                                    <!-- Category name will be inserted here -->
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters and Products -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters -->
+                <div class="col-lg-3 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="bi bi-funnel me-2"></i>Filtrează Produsele
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Category Filter -->
+                            <div class="filter-section mb-4">
+                                <h6 class="fw-bold mb-3">Categorii</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="dulceturi" id="cat-dulceturi">
+                                    <label class="form-check-label" for="cat-dulceturi">
+                                        Dulcețuri & Miere
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="conserve" id="cat-conserve">
+                                    <label class="form-check-label" for="cat-conserve">
+                                        Conserve & Murături
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="mezeluri" id="cat-mezeluri">
+                                    <label class="form-check-label" for="cat-mezeluri">
+                                        Mezeluri
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="branza" id="cat-branza">
+                                    <label class="form-check-label" for="cat-branza">
+                                        Brânzeturi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="bauturi" id="cat-bauturi">
+                                    <label class="form-check-label" for="cat-bauturi">
+                                        Băuturi
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Region Filter -->
+                            <div class="filter-section mb-4">
+                                <h6 class="fw-bold mb-3">Regiuni</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Transilvania" id="reg-transilvania">
+                                    <label class="form-check-label" for="reg-transilvania">
+                                        Transilvania
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Muntenia" id="reg-muntenia">
+                                    <label class="form-check-label" for="reg-muntenia">
+                                        Muntenia
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Maramureș" id="reg-maramures">
+                                    <label class="form-check-label" for="reg-maramures">
+                                        Maramureș
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Banat" id="reg-banat">
+                                    <label class="form-check-label" for="reg-banat">
+                                        Banat
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Oltenia" id="reg-oltenia">
+                                    <label class="form-check-label" for="reg-oltenia">
+                                        Oltenia
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Dobrogea" id="reg-dobrogea">
+                                    <label class="form-check-label" for="reg-dobrogea">
+                                        Dobrogea
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Crișana" id="reg-crisana">
+                                    <label class="form-check-label" for="reg-crisana">
+                                        Crișana
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Bucovina" id="reg-bucovina">
+                                    <label class="form-check-label" for="reg-bucovina">
+                                        Bucovina
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Traditional Tags Filter -->
+                            <div class="filter-section mb-4">
+                                <h6 class="fw-bold mb-3">Etichete Tradiționale</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="produs-de-post" id="tag-post">
+                                    <label class="form-check-label" for="tag-post">
+                                        Produs de post
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="fara-zahar" id="tag-zahar">
+                                    <label class="form-check-label" for="tag-zahar">
+                                        Fără zahăr
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="artizanal" id="tag-artizanal">
+                                    <label class="form-check-label" for="tag-artizanal">
+                                        Artizanal
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="fara-aditivi" id="tag-aditivi">
+                                    <label class="form-check-label" for="tag-aditivi">
+                                        Fără aditivi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="ambalat-manual" id="tag-manual">
+                                    <label class="form-check-label" for="tag-manual">
+                                        Ambalat manual
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Clear Filters -->
+                            <button class="btn btn-outline-secondary w-100" onclick="clearAllFilters()">
+                                <i class="bi bi-x-circle me-2"></i>Șterge Filtrele
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="col-lg-9">
+                    <!-- Sorting and Results Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <span id="results-count" class="text-muted">Se încarcă produsele...</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <label for="sortSelect" class="form-label me-2 mb-0">Ordonează după:</label>
+                            <select class="form-select" id="sortSelect" style="width: auto;">
+                                <option value="recommended">Cele mai recomandate</option>
+                                <option value="price-asc">Preț: de la mic la mare</option>
+                                <option value="price-desc">Preț: de la mare la mic</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Products Container -->
+                    <div class="row g-4" id="products-container">
+                        <!-- Products will be loaded here by JavaScript -->
+                    </div>
+
+                    <!-- No Results Message -->
+                    <div id="no-results" class="text-center py-5" style="display: none;">
+                        <i class="bi bi-search text-muted" style="font-size: 4rem;"></i>
+                        <h3 class="mt-3">Nu am găsit produse</h3>
+                        <p class="text-muted">Încearcă să modifici filtrele pentru a găsi produsele dorite.</p>
+                        <button class="btn btn-primary" onclick="clearAllFilters()">
+                            Șterge toate filtrele
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>Gusturi Românești</h5>
+                    <p>Cea mai mare platformă online de produse tradiționale românești.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Navigare</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">Acasă</a></li>
+                        <li><a href="products.html" class="text-light text-decoration-none">Produse</a></li>
+                        <li><a href="offers.html" class="text-light text-decoration-none">Oferte</a></li>
+                        <li><a href="about.html" class="text-light text-decoration-none">Despre Noi</a></li>
+                        <li><a href="contact.html" class="text-light text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Cont</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="login.html" class="text-light text-decoration-none">Autentificare</a></li>
+                        <li><a href="cart.html" class="text-light text-decoration-none">Coșul Meu</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Informații</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="privacy.html" class="text-light text-decoration-none">Politica de Confidențialitate</a></li>
+                        <li><a href="terms.html" class="text-light text-decoration-none">Termeni și Condiții</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Contact</h6>
+                    <p class="small mb-1">📍 București, România</p>
+                    <p class="small mb-1">📞 +40 721 234 567</p>
+                    <p class="small">✉️ contact@gusturi-romanesti.ro</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Gusturi Românești. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+    <script src="assistant-bot.js"></script>
+    <script>
+        // Products data with all required attributes and proper links
+        const allProducts = [
+            {
+                id: 1,
+                name: "Dulceață de Căpșuni de Argeș",
+                price: 18.99,
+                weight: "350g",
+                region: "Muntenia",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Dulceata+Capsuni",
+                description: "Dulceață tradițională din căpșuni proaspete de Argeș",
+                link: "product-dulceata-capsuni-arges.html",
+                recommended: true,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 2,
+                name: "Zacuscă de Buzău",
+                price: 15.50,
+                weight: "450g",
+                region: "Muntenia",
+                category: "conserve",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Zacusca+Buzau",
+                description: "Zacuscă tradițională cu vinete și ardei copți",
+                link: "product-zacusca-buzau.html",
+                recommended: true,
+                tags: ["produs-de-post", "artizanal", "fara-aditivi"]
+            },
+            {
+                id: 3,
+                name: "Brânză de Burduf",
+                price: 32.00,
+                weight: "500g",
+                region: "Maramureș",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Branza+Burduf",
+                description: "Brânză tradițională de oaie maturată în burduf",
+                link: "product-branza-burduf-maramures.html",
+                recommended: true,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 4,
+                name: "Țuică de Prune Hunedoara",
+                price: 45.00,
+                weight: "500ml",
+                region: "Transilvania",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Tuica+Prune",
+                description: "Țuică tradițională de prune, 52% alcool",
+                link: "product-tuica-prune-hunedoara.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 5,
+                name: "Miere de Salcâm",
+                price: 28.50,
+                weight: "500g",
+                region: "Transilvania",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Miere+Salcam",
+                description: "Miere pură de salcâm din Munții Apuseni",
+                link: "product-miere-salcam-transilvania.html",
+                recommended: true,
+                tags: ["fara-aditivi", "artizanal"]
+            },
+            {
+                id: 6,
+                name: "Cârnați de Pleșcoi",
+                price: 24.99,
+                weight: "400g",
+                region: "Muntenia",
+                category: "mezeluri",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Carnati+Plescoi",
+                description: "Cârnați afumați tradițional din Pleșcoi",
+                link: "product-carnati-plescoi-muntenia.html",
+                recommended: false,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 7,
+                name: "Telemea de Ibănești",
+                price: 19.50,
+                weight: "300g",
+                region: "Muntenia",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Telemea+Ibanesti",
+                description: "Telemea tradițională din lapte de oaie",
+                link: "product-telemea-ibanesti-muntenia.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 8,
+                name: "Pălincă de Pere Maramureș",
+                price: 55.00,
+                weight: "500ml",
+                region: "Maramureș",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Palinca+Pere",
+                description: "Pălincă dublă distilare din pere Williams",
+                link: "product-palinca-pere-maramures.html",
+                recommended: true,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 9,
+                name: "Gem de Caise Banat",
+                price: 21.50,
+                weight: "350g",
+                region: "Banat",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Gem+Caise",
+                description: "Gem tradițional din caise de Banat",
+                link: "product-gem-caise-banat.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 10,
+                name: "Slănină Afumată Oltenia",
+                price: 35.00,
+                weight: "600g",
+                region: "Oltenia",
+                category: "mezeluri",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Slanina+Afumata",
+                description: "Slănină afumată tradițional cu lemn de fag",
+                link: "product-slanina-afumata-oltenia.html",
+                recommended: false,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 11,
+                name: "Miere de Tei Bucovina",
+                price: 32.00,
+                weight: "500g",
+                region: "Bucovina",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Miere+Tei",
+                description: "Miere cristalizată de tei din pădurile Bucovinei",
+                link: "product-miere-tei-bucovina.html",
+                recommended: true,
+                tags: ["fara-aditivi", "artizanal"]
+            },
+            {
+                id: 12,
+                name: "Murături Asortate Crișana",
+                price: 16.99,
+                weight: "720ml",
+                region: "Crișana",
+                category: "conserve",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Muraturi+Asortate",
+                description: "Murături tradiționale în oțet de vin",
+                link: "product-muraturi-asortate-crisana.html",
+                recommended: false,
+                tags: ["produs-de-post", "fara-aditivi", "artizanal"]
+            },
+            {
+                id: 13,
+                name: "Caș de Capră Maramureș",
+                price: 26.50,
+                weight: "400g",
+                region: "Maramureș",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Cas+Capra",
+                description: "Caș proaspăt din lapte de capră",
+                link: "product-cas-capra-maramures.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 14,
+                name: "Dulceață de Trandafiri",
+                price: 42.50,
+                weight: "250g",
+                region: "Dobrogea",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Dulceata+Trandafiri",
+                description: "Dulceață delicată din petale de trandafiri",
+                link: "product-dulceata-trandafiri-dobrogea.html",
+                recommended: true,
+                tags: ["artizanal", "fara-aditivi", "ambalat-manual"]
+            },
+            {
+                id: 15,
+                name: "Horincă Maramureș",
+                price: 65.00,
+                weight: "500ml",
+                region: "Maramureș",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Horinca+Maramures",
+                description: "Horincă tradițională din prune, 65% alcool",
+                link: "product-horinca-maramures.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 16,
+                name: "Miere de Tei",
+                price: 25.50,
+                weight: "500g",
+                region: "Transilvania",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Miere+Tei",
+                description: "Miere naturală de tei din Transilvania",
+                link: "product-miere-tei-transilvania.html",
+                recommended: false,
+                tags: ["fara-aditivi", "artizanal"]
+            },
+            {
+                id: 17,
+                name: "Compot de Vișine",
+                price: 16.99,
+                weight: "720ml",
+                region: "Oltenia",
+                category: "conserve",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Compot+Visine",
+                description: "Compot natural din vișine de Oltenia",
+                link: "product-compot-visine-oltenia.html",
+                recommended: false,
+                tags: ["produs-de-post", "fara-zahar", "fara-aditivi"]
+            },
+            {
+                id: 18,
+                name: "Șuncă de Țară Banat",
+                price: 48.00,
+                weight: "500g",
+                region: "Banat",
+                category: "mezeluri",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Sunca+Tara",
+                description: "Șuncă afumată tradițional în Banat",
+                link: "product-sunca-tara-banat.html",
+                recommended: true,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 19,
+                name: "Brânză de Vaci Transilvania",
+                price: 22.00,
+                weight: "400g",
+                region: "Transilvania",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Branza+Vaci",
+                description: "Brânză tradițională din lapte de vacă",
+                link: "product-branza-vaci-transilvania.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 20,
+                name: "Vin de Țară Dobrogea",
+                price: 38.50,
+                weight: "750ml",
+                region: "Dobrogea",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Vin+Tara",
+                description: "Vin roșu sec din soiuri autohtone",
+                link: "product-vin-tara-dobrogea.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 21,
+                name: "Dulceață de Gutui",
+                price: 23.50,
+                weight: "350g",
+                region: "Dobrogea",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Dulceata+Gutui",
+                description: "Dulceață aromată din gutui de Dobrogea",
+                link: "product-dulceata-gutui-dobrogea.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 22,
+                name: "Ciuperci Murate Bucovina",
+                price: 18.50,
+                weight: "500g",
+                region: "Bucovina",
+                category: "conserve",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Ciuperci+Murate",
+                description: "Ciuperci de pădure murate tradițional",
+                link: "product-ciuperci-murate-bucovina.html",
+                recommended: false,
+                tags: ["produs-de-post", "artizanal", "fara-aditivi"]
+            },
+            {
+                id: 23,
+                name: "Lebăr de Porc Crișana",
+                price: 29.99,
+                weight: "300g",
+                region: "Crișana",
+                category: "mezeluri",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Lebar+Porc",
+                description: "Lebăr tradițional din Crișana",
+                link: "product-lebar-porc-crisana.html",
+                recommended: false,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 24,
+                name: "Urdă Proaspătă Maramureș",
+                price: 15.50,
+                weight: "300g",
+                region: "Maramureș",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Urda+Proaspata",
+                description: "Urdă proaspătă din zer de oaie",
+                link: "product-urda-proaspata-maramures.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 25,
+                name: "Sirop de Cătină Bucovina",
+                price: 27.50,
+                weight: "500ml",
+                region: "Bucovina",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Sirop+Catina",
+                description: "Sirop natural din cătină de munte",
+                link: "product-sirop-catina-bucovina.html",
+                recommended: true,
+                tags: ["fara-zahar", "fara-aditivi", "artizanal"]
+            },
+            {
+                id: 26,
+                name: "Miere de Rapița",
+                price: 20.00,
+                weight: "500g",
+                region: "Oltenia",
+                category: "dulceturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Miere+Rapita",
+                description: "Miere cristalizată de rapiță din Oltenia",
+                link: "product-miere-rapita-oltenia.html",
+                recommended: false,
+                tags: ["fara-aditivi", "artizanal"]
+            },
+            {
+                id: 27,
+                name: "Fasole Bătută Muntenia",
+                price: 12.50,
+                weight: "400g",
+                region: "Muntenia",
+                category: "conserve",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Fasole+Batuta",
+                description: "Fasole bătută tradițională cu ceapă",
+                link: "product-fasole-batuta-muntenia.html",
+                recommended: false,
+                tags: ["produs-de-post", "artizanal", "fara-aditivi"]
+            },
+            {
+                id: 28,
+                name: "Jumări de Porc Banat",
+                price: 31.00,
+                weight: "250g",
+                region: "Banat",
+                category: "mezeluri",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Jumari+Porc",
+                description: "Jumări crocante din Banat",
+                link: "product-jumari-porc-banat.html",
+                recommended: false,
+                tags: ["artizanal", "ambalat-manual"]
+            },
+            {
+                id: 29,
+                name: "Smântână de Țară Transilvania",
+                price: 14.50,
+                weight: "200ml",
+                region: "Transilvania",
+                category: "branza",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Smantana+Tara",
+                description: "Smântână grasă de țară 35%",
+                link: "product-smantana-tara-transilvania.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            },
+            {
+                id: 30,
+                name: "Rachiu de Prune Crișana",
+                price: 52.00,
+                weight: "500ml",
+                region: "Crișana",
+                category: "bauturi",
+                image: "https://via.placeholder.com/300x200/8B0000/FFFFFF?text=Rachiu+Prune",
+                description: "Rachiu tradițional din prune de Crișana",
+                link: "product-rachiu-prune-crisana.html",
+                recommended: false,
+                tags: ["artizanal", "fara-aditivi"]
+            }
+        ];
+
+        // Category mapping for display names
+        const categoryNames = {
+            'dulceturi': 'Dulcețuri & Miere',
+            'conserve': 'Conserve & Murături',
+            'mezeluri': 'Mezeluri',
+            'branza': 'Brânzeturi',
+            'bauturi': 'Băuturi'
+        };
+
+        // Current filters and sorting
+        let currentFilters = {
+            categories: [],
+            regions: [],
+            tags: []
+        };
+        let currentSort = 'recommended';
+        let filteredProducts = [...allProducts];
+        let urlCategory = null; // Category from URL parameter
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for category parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            urlCategory = urlParams.get('category');
+            
+            if (urlCategory && categoryNames[urlCategory]) {
+                // Apply category filter from URL
+                applyCategoryFromURL(urlCategory);
+            }
+            
+            setupEventListeners();
+            applyFiltersAndSort();
+        });
+
+        function applyCategoryFromURL(category) {
+            // Check the corresponding category checkbox
+            const categoryCheckbox = document.getElementById(`cat-${category}`);
+            if (categoryCheckbox) {
+                categoryCheckbox.checked = true;
+                
+                // Add visual highlight to the category filter
+                categoryCheckbox.closest('.form-check').classList.add('bg-light', 'rounded', 'p-2');
+            }
+            
+            // Show category breadcrumb
+            const breadcrumb = document.getElementById('category-breadcrumb');
+            const currentCategory = document.getElementById('current-category');
+            
+            if (breadcrumb && currentCategory) {
+                currentCategory.textContent = categoryNames[category];
+                breadcrumb.style.display = 'block';
+            }
+            
+            // Update page title
+            document.title = `${categoryNames[category]} - Gusturi Românești`;
+            
+            // Show notification about applied filter
+            setTimeout(() => {
+                showNotification(`Filtrare aplicată: ${categoryNames[category]}`, 'info');
+            }, 500);
+        }
+
+        function setupEventListeners() {
+            // Category filters
+            document.querySelectorAll('input[id^="cat-"]').forEach(checkbox => {
+                checkbox.addEventListener('change', handleFilterChange);
+            });
+
+            // Region filters
+            document.querySelectorAll('input[id^="reg-"]').forEach(checkbox => {
+                checkbox.addEventListener('change', handleFilterChange);
+            });
+
+            // Tag filters
+            document.querySelectorAll('input[id^="tag-"]').forEach(checkbox => {
+                checkbox.addEventListener('change', handleFilterChange);
+            });
+
+            // Sort dropdown
+            document.getElementById('sortSelect').addEventListener('change', handleSortChange);
+        }
+
+        function handleFilterChange() {
+            updateCurrentFilters();
+            updateBreadcrumb();
+            applyFiltersAndSort();
+        }
+
+        function handleSortChange(e) {
+            currentSort = e.target.value;
+            applyFiltersAndSort();
+        }
+
+        function updateCurrentFilters() {
+            // Update categories
+            currentFilters.categories = Array.from(document.querySelectorAll('input[id^="cat-"]:checked'))
+                .map(cb => cb.value);
+
+            // Update regions
+            currentFilters.regions = Array.from(document.querySelectorAll('input[id^="reg-"]:checked'))
+                .map(cb => cb.value);
+
+            // Update tags
+            currentFilters.tags = Array.from(document.querySelectorAll('input[id^="tag-"]:checked'))
+                .map(cb => cb.value);
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('category-breadcrumb');
+            const currentCategory = document.getElementById('current-category');
+            
+            if (currentFilters.categories.length === 1) {
+                // Show breadcrumb for single category
+                const category = currentFilters.categories[0];
+                currentCategory.textContent = categoryNames[category];
+                breadcrumb.style.display = 'block';
+                
+                // Update URL without page reload
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('category', category);
+                window.history.replaceState({}, '', newUrl);
+            } else {
+                // Hide breadcrumb for multiple or no categories
+                breadcrumb.style.display = 'none';
+                
+                // Remove category parameter from URL
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.delete('category');
+                window.history.replaceState({}, '', newUrl);
+            }
+        }
+
+        function applyFiltersAndSort() {
+            // Start with all products
+            filteredProducts = [...allProducts];
+
+            // Apply category filters
+            if (currentFilters.categories.length > 0) {
+                filteredProducts = filteredProducts.filter(product => 
+                    currentFilters.categories.includes(product.category)
+                );
+            }
+
+            // Apply region filters
+            if (currentFilters.regions.length > 0) {
+                filteredProducts = filteredProducts.filter(product => 
+                    currentFilters.regions.includes(product.region)
+                );
+            }
+
+            // Apply tag filters
+            if (currentFilters.tags.length > 0) {
+                filteredProducts = filteredProducts.filter(product => 
+                    currentFilters.tags.some(tag => product.tags.includes(tag))
+                );
+            }
+
+            // Apply sorting
+            sortProducts();
+
+            // Render products
+            renderProducts();
+            updateResultsCount();
+        }
+
+        function sortProducts() {
+            switch (currentSort) {
+                case 'price-asc':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'recommended':
+                default:
+                    filteredProducts.sort((a, b) => {
+                        if (a.recommended && !b.recommended) return -1;
+                        if (!a.recommended && b.recommended) return 1;
+                        return a.price - b.price; // Secondary sort by price
+                    });
+                    break;
+            }
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('products-container');
+            const noResults = document.getElementById('no-results');
+
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            container.innerHTML = filteredProducts.map(product => createProductCard(product)).join('');
+        }
+
+        function createProductCard(product) {
+            const tagBadges = product.tags.map(tag => {
+                const tagLabels = {
+                    'produs-de-post': { text: 'Produs de post', class: 'bg-success' },
+                    'fara-zahar': { text: 'Fără zahăr', class: 'bg-info' },
+                    'artizanal': { text: 'Artizanal', class: 'bg-warning text-dark' },
+                    'fara-aditivi': { text: 'Fără aditivi', class: 'bg-primary' },
+                    'ambalat-manual': { text: 'Ambalat manual', class: 'bg-secondary' }
+                };
+                const tagInfo = tagLabels[tag] || { text: tag, class: 'bg-light text-dark' };
+                return `<span class="badge ${tagInfo.class} me-1 mb-1">${tagInfo.text}</span>`;
+            }).join('');
+
+            const recommendedBadge = product.recommended ? 
+                '<span class="badge bg-danger position-absolute top-0 end-0 m-2">Recomandat</span>' : '';
+
+            return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card product-card h-100 shadow-sm position-relative">
+                        ${recommendedBadge}
+                        <a href="${product.link}" class="text-decoration-none">
+                            <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
+                        </a>
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge region-badge mb-2 align-self-start">Produs local din ${product.region}</span>
+                            <div class="mb-2">
+                                ${tagBadges}
+                            </div>
+                            <h5 class="card-title">
+                                <a href="${product.link}" class="text-decoration-none text-dark">${product.name}</a>
+                            </h5>
+                            <p class="card-text text-muted small">${product.description}</p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="price">${product.price.toFixed(2)} RON</span>
+                                    <span class="text-muted small">${product.weight}</span>
+                                </div>
+                                <button class="btn btn-add-to-cart w-100" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image}', '${product.weight}')" aria-label="Adaugă ${product.name} în coș">
+                                    <i class="bi bi-basket"></i> Adaugă în Coș
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateResultsCount() {
+            const count = filteredProducts.length;
+            const total = allProducts.length;
+            
+            let resultsText;
+            if (urlCategory && currentFilters.categories.length === 1 && currentFilters.categories[0] === urlCategory) {
+                // Show category-specific count
+                resultsText = `Afișez ${count} produse din categoria "${categoryNames[urlCategory]}"`;
+            } else if (count === total) {
+                resultsText = `Afișez toate cele ${total} produse`;
+            } else {
+                resultsText = `Afișez ${count} din ${total} produse`;
+            }
+            
+            document.getElementById('results-count').textContent = resultsText;
+        }
+
+        function clearAllFilters() {
+            // Clear all checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+                // Remove visual highlights
+                cb.closest('.form-check').classList.remove('bg-light', 'rounded', 'p-2');
+            });
+
+            // Reset sort to recommended
+            document.getElementById('sortSelect').value = 'recommended';
+            currentSort = 'recommended';
+
+            // Reset filters
+            currentFilters = {
+                categories: [],
+                regions: [],
+                tags: []
+            };
+
+            // Clear URL category
+            urlCategory = null;
+            
+            // Update URL to remove category parameter
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.delete('category');
+            window.history.replaceState({}, '', newUrl);
+            
+            // Hide breadcrumb
+            document.getElementById('category-breadcrumb').style.display = 'none';
+            
+            // Reset page title
+            document.title = 'Produse Tradiționale - Gusturi Românești';
+
+            // Apply changes
+            applyFiltersAndSort();
+            
+            // Show notification
+            showNotification('Toate filtrele au fost șterse', 'info');
+        }
+    </script>
+</body>
+</html>

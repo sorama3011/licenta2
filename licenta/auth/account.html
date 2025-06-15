@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contul Meu - Gusturi Românești</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        .account-header {
+            background-color: #8B0000;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid rgba(0,0,0,0.125);
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #8B0000;
+            border-color: #8B0000;
+        }
+        .btn-primary:hover {
+            background-color: #6B0000;
+            border-color: #6B0000;
+        }
+        .btn-outline-primary {
+            color: #8B0000;
+            border-color: #8B0000;
+        }
+        .btn-outline-primary:hover {
+            background-color: #8B0000;
+            border-color: #8B0000;
+        }
+        .btn-reorder {
+            background-color: #8B0000;
+            border-color: #8B0000;
+            color: white;
+        }
+        .btn-reorder:hover {
+            background-color: #6B0000;
+            border-color: #6B0000;
+            color: white;
+        }
+        .loyalty-card {
+            background: linear-gradient(135deg, #8B0000, #DAA520);
+            color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: #8B0000;
+        }
+        .nav-pills .nav-link {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="message-container"></div>
+        
+        <div class="account-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3">Bun venit, <span id="user-name">...</span>!</h1>
+                        <p class="mb-0">Contul tău Gusturi Românești</p>
+                    </div>
+                    <div>
+                        <button onclick="logout()" class="btn btn-outline-light">
+                            <i class="bi bi-box-arrow-right"></i> Deconectare
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <div class="mt-3">
+                                <h4 id="user-full-name">...</h4>
+                                <p class="text-muted mb-1" id="user-email">...</p>
+                                <p class="text-muted mb-1">
+                                    <span class="badge bg-primary" id="user-type">Client</span>
+                                </p>
+                                <p class="text-muted mb-1" id="user-member-since">Membru din ...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group mt-4">
+                    <a href="#dashboard" class="list-group-item list-group-item-action active" data-bs-toggle="list">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                    <a href="#orders" class="list-group-item list-group-item-action" data-bs-toggle="list" id="order-history">
+                        <i class="bi bi-bag me-2"></i> Comenzile Mele
+                    </a>
+                    <a href="#profile" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="bi bi-person me-2"></i> Profilul Meu
+                    </a>
+                    <a href="#addresses" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="bi bi-geo-alt me-2"></i> Adresele Mele
+                    </a>
+                    <a href="#wishlist" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="bi bi-heart me-2"></i> Lista de Dorințe
+                    </a>
+                    <a href="#reviews" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="bi bi-star me-2"></i> Recenziile Mele
+                    </a>
+                </div>
+                
+                <div class="card mt-4 loyalty-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Puncte de Fidelitate</h5>
+                        <h2 class="display-4" id="loyalty-points">0</h2>
+                        <p class="card-text">Puncte disponibile</p>
+                        <p class="card-text small" id="loyalty-total">Total acumulat: 0 puncte</p>
+                        <a href="#" class="btn btn-light btn-sm">Folosește punctele</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <!-- Dashboard -->
+                    <div class="tab-pane fade show active" id="dashboard">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Dashboard</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card text-center mb-3">
+                                            <div class="card-body">
+                                                <h1 class="display-4" id="orders-count">0</h1>
+                                                <p class="card-text">Comenzi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card text-center mb-3">
+                                            <div class="card-body">
+                                                <h1 class="display-4" id="points-count">0</h1>
+                                                <p class="card-text">Puncte</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card text-center mb-3">
+                                            <div class="card-body">
+                                                <h1 class="display-4" id="reviews-count">0</h1>
+                                                <p class="card-text">Recenzii</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4">Comenzi Recente</h5>
+                                <div id="recent-orders-container">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Se încarcă...</span>
+                                        </div>
+                                        <p class="mt-2">Se încarcă comenzile...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-3">
+                                    <a href="#orders" class="btn btn-primary" data-bs-toggle="list">Vezi toate comenzile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Orders -->
+                    <div class="tab-pane fade" id="orders">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Comenzile Mele</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="all-orders-container">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Se încarcă...</span>
+                                        </div>
+                                        <p class="mt-2">Se încarcă comenzile...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile -->
+                    <div class="tab-pane fade" id="profile">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Profilul Meu</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="profile-form">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="nume" class="form-label">Nume</label>
+                                            <input type="text" class="form-control" id="nume" name="nume">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="telefon" class="form-label">Telefon</label>
+                                            <input type="tel" class="form-control" id="telefon" name="telefon">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="data_inregistrare" class="form-label">Data înregistrării</label>
+                                            <input type="text" class="form-control" id="data_inregistrare" readonly>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Salvează modificările</button>
+                                </form>
+                                
+                                <hr class="my-4">
+                                
+                                <h5>Schimbă parola</h5>
+                                <form id="password-form">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="parola_curenta" class="form-label">Parola curentă</label>
+                                            <input type="password" class="form-control" id="parola_curenta" name="parola_curenta">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="parola_noua" class="form-label">Parola nouă</label>
+                                            <input type="password" class="form-control" id="parola_noua" name="parola_noua">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="parola_confirmare" class="form-label">Confirmă parola nouă</label>
+                                            <input type="password" class="form-control" id="parola_confirmare" name="parola_confirmare">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Schimbă parola</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Addresses -->
+                    <div class="tab-pane fade" id="addresses">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Adresele Mele</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h6 class="card-title">Adresa principală</h6>
+                                                <p class="card-text" id="main-address">
+                                                    Se încarcă...
+                                                </p>
+                                                <div class="mt-3">
+                                                    <button class="btn btn-sm btn-outline-primary" id="edit-address-btn">Editează</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3 border-dashed">
+                                            <div class="card-body text-center">
+                                                <i class="bi bi-plus-circle" style="font-size: 2rem;"></i>
+                                                <h6 class="card-title mt-3">Adaugă o adresă nouă</h6>
+                                                <button class="btn btn-sm btn-outline-primary mt-2" id="add-address-btn">Adaugă</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Address Form (hidden by default) -->
+                                <div id="address-form-container" style="display: none;">
+                                    <hr>
+                                    <h5 id="address-form-title">Adaugă adresă nouă</h5>
+                                    <form id="address-form">
+                                        <div class="mb-3">
+                                            <label for="adresa" class="form-label">Adresa *</label>
+                                            <textarea class="form-control" id="adresa" name="adresa" rows="2" required></textarea>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label for="oras" class="form-label">Oraș *</label>
+                                                <input type="text" class="form-control" id="oras" name="oras" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="judet" class="form-label">Județ *</label>
+                                                <input type="text" class="form-control" id="judet" name="judet" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="cod_postal" class="form-label">Cod Poștal *</label>
+                                                <input type="text" class="form-control" id="cod_postal" name="cod_postal" required>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button type="submit" class="btn btn-primary">Salvează</button>
+                                            <button type="button" class="btn btn-secondary" id="cancel-address-btn">Anulează</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Wishlist -->
+                    <div class="tab-pane fade" id="wishlist">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Lista de Dorințe</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="wishlist-container">
+                                    <div class="alert alert-info">
+                                        Nu ai produse în lista de dorințe.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reviews -->
+                    <div class="tab-pane fade" id="reviews">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Recenziile Mele</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="reviews-container">
+                                    <div class="alert alert-info">
+                                        Nu ai scris încă nicio recenzie.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="../index.html" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i> Înapoi la magazin
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            
+            if (!userData.loggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load user data
+            document.getElementById('user-name').textContent = userData.name.split(' ')[0] || '...';
+            document.getElementById('user-full-name').textContent = userData.name || '...';
+            document.getElementById('user-email').textContent = userData.email || '...';
+            document.getElementById('user-type').textContent = 'Client';
+            document.getElementById('user-member-since').textContent = 'Membru din ' + (userData.memberSince || 'Ianuarie 2024');
+            
+            // Load loyalty points
+            document.getElementById('loyalty-points').textContent = userData.points || '0';
+            document.getElementById('points-count').textContent = userData.points || '0';
+            document.getElementById('loyalty-total').textContent = 'Total acumulat: ' + (userData.points || '0') + ' puncte';
+            
+            // Load dashboard stats
+            document.getElementById('orders-count').textContent = userData.totalOrders || '0';
+            document.getElementById('reviews-count').textContent = userData.favoriteProducts || '0';
+            
+            // Load profile form
+            document.getElementById('nume').value = userData.name || '';
+            document.getElementById('email').value = userData.email || '';
+            document.getElementById('telefon').value = userData.phone || '';
+            document.getElementById('data_inregistrare').value = userData.memberSince || 'Ianuarie 2024';
+            
+            // Load address
+            const addressElement = document.getElementById('main-address');
+            if (userData.address) {
+                addressElement.innerHTML = `
+                    ${userData.address}<br>
+                    ${userData.city || ''}, ${userData.county || ''}<br>
+                    ${userData.postalCode || ''}
+                `;
+                
+                // Pre-fill address form
+                document.getElementById('adresa').value = userData.address || '';
+                document.getElementById('oras').value = userData.city || '';
+                document.getElementById('judet').value = userData.county || '';
+                document.getElementById('cod_postal').value = userData.postalCode || '';
+            } else {
+                addressElement.innerHTML = 'Nicio adresă salvată';
+            }
+            
+            // Load orders
+            loadOrders();
+            
+            // Check for messages
+            checkForMessages();
+            
+            // Handle hash navigation
+            if (window.location.hash) {
+                const targetTab = document.querySelector(`a[href="${window.location.hash}"]`);
+                if (targetTab) {
+                    const tab = new bootstrap.Tab(targetTab);
+                    tab.show();
+                }
+            }
+        });
+        
+        // Load orders from localStorage (simulated data)
+        function loadOrders() {
+            const orders = [
+                {
+                    id: 1,
+                    number: 'GR-2024-001',
+                    date: '15.01.2024',
+                    status: 'Livrată',
+                    statusClass: 'bg-success',
+                    total: '135.00',
+                    products: 4
+                },
+                {
+                    id: 2,
+                    number: 'GR-2024-002',
+                    date: '28.01.2024',
+                    status: 'Expediată',
+                    statusClass: 'bg-success',
+                    total: '89.50',
+                    products: 2
+                },
+                {
+                    id: 3,
+                    number: 'GR-2024-003',
+                    date: '10.02.2024',
+                    status: 'În procesare',
+                    statusClass: 'bg-warning',
+                    total: '210.00',
+                    products: 3
+                }
+            ];
+            
+            // Render recent orders
+            const recentOrdersContainer = document.getElementById('recent-orders-container');
+            if (orders.length > 0) {
+                recentOrdersContainer.innerHTML = `
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Comandă</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Acțiuni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${orders.slice(0, 3).map(order => `
+                                    <tr>
+                                        <td>${order.number}</td>
+                                        <td>${order.date}</td>
+                                        <td>
+                                            <span class="badge ${order.statusClass}">${order.status}</span>
+                                        </td>
+                                        <td>${order.total} RON</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="detalii-comanda.php?id=${order.id}" class="btn btn-sm btn-outline-primary">Detalii</a>
+                                                <a href="reorder.php?id=${order.id}" class="btn btn-sm btn-reorder">
+                                                    <i class="bi bi-arrow-repeat"></i> Comandă Din Nou
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } else {
+                recentOrdersContainer.innerHTML = `
+                    <div class="alert alert-info">
+                        Nu ai plasat încă nicio comandă.
+                    </div>
+                `;
+            }
+            
+            // Render all orders
+            const allOrdersContainer = document.getElementById('all-orders-container');
+            if (orders.length > 0) {
+                allOrdersContainer.innerHTML = `
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Comandă</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Produse</th>
+                                    <th>Total</th>
+                                    <th>Acțiuni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${orders.map(order => `
+                                    <tr>
+                                        <td>${order.number}</td>
+                                        <td>${order.date}</td>
+                                        <td>
+                                            <span class="badge ${order.statusClass}">${order.status}</span>
+                                        </td>
+                                        <td>${order.products}</td>
+                                        <td>${order.total} RON</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="detalii-comanda.php?id=${order.id}" class="btn btn-sm btn-outline-primary">Detalii</a>
+                                                <a href="reorder.php?id=${order.id}" class="btn btn-sm btn-reorder">
+                                                    <i class="bi bi-arrow-repeat"></i> Comandă Din Nou
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } else {
+                allOrdersContainer.innerHTML = `
+                    <div class="alert alert-info">
+                        Nu ai plasat încă nicio comandă.
+                    </div>
+                `;
+            }
+        }
+        
+        // Check for messages in URL or session
+        function checkForMessages() {
+            const messageContainer = document.getElementById('message-container');
+            
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMsg = urlParams.get('success');
+            const errorMsg = urlParams.get('error');
+            
+            if (successMsg) {
+                messageContainer.innerHTML = `
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        ${decodeURIComponent(successMsg)}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+            } else if (errorMsg) {
+                messageContainer.innerHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        ${decodeURIComponent(errorMsg)}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+            }
+            
+            // Clean URL
+            if (successMsg || errorMsg) {
+                const url = new URL(window.location);
+                url.searchParams.delete('success');
+                url.searchParams.delete('error');
+                window.history.replaceState({}, '', url);
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userData');
+            window.location.href = '../index.html';
+        }
+        
+        // Form submissions
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const name = document.getElementById('nume').value;
+            const phone = document.getElementById('telefon').value;
+            
+            // Update localStorage
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            userData.name = name;
+            userData.phone = phone;
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Update displayed name
+            document.getElementById('user-name').textContent = name.split(' ')[0];
+            document.getElementById('user-full-name').textContent = name;
+            
+            // Show success message
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Profilul a fost actualizat cu succes!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        });
+        
+        document.getElementById('password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const currentPassword = document.getElementById('parola_curenta').value;
+            const newPassword = document.getElementById('parola_noua').value;
+            const confirmPassword = document.getElementById('parola_confirmare').value;
+            
+            // Validate
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Te rugăm să completezi toate câmpurile.');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('Parolele noi nu se potrivesc.');
+                return;
+            }
+            
+            // Show success message
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Parola a fost schimbată cu succes!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Address form handling
+        document.getElementById('edit-address-btn').addEventListener('click', function() {
+            document.getElementById('address-form-title').textContent = 'Editează adresa';
+            document.getElementById('address-form-container').style.display = 'block';
+            document.getElementById('address-form').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('add-address-btn').addEventListener('click', function() {
+            document.getElementById('address-form-title').textContent = 'Adaugă adresă nouă';
+            document.getElementById('address-form-container').style.display = 'block';
+            document.getElementById('address-form').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('cancel-address-btn').addEventListener('click', function() {
+            document.getElementById('address-form-container').style.display = 'none';
+        });
+        
+        document.getElementById('address-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const address = document.getElementById('adresa').value;
+            const city = document.getElementById('oras').value;
+            const county = document.getElementById('judet').value;
+            const postalCode = document.getElementById('cod_postal').value;
+            
+            // Update localStorage
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            userData.address = address;
+            userData.city = city;
+            userData.county = county;
+            userData.postalCode = postalCode;
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Update displayed address
+            document.getElementById('main-address').innerHTML = `
+                ${address}<br>
+                ${city}, ${county}<br>
+                ${postalCode}
+            `;
+            
+            // Hide form
+            document.getElementById('address-form-container').style.display = 'none';
+            
+            // Show success message
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Adresa a fost salvată cu succes!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
